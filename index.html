@@ -2140,28 +2140,11 @@ function getProductCategory(product) {
 function renderCategories() {
     const box = document.getElementById("categoryList");
 
-    const categories = [
-        ...new Set(
-            products
-                .map(getProductCategory)
-                .filter(Boolean)
-        )
-    ];
-
     const allCategories = [
         { value: "all", label: "সব পণ্য" },
-        ...categories.map(category => ({
-            value: category,
-            label: category
-        }))
+        { value: "মেয়েদের", label: "মেয়েদের" },
+        { value: "ছেলেদের", label: "ছেলেদের" }
     ];
-
-    if (
-        selectedCategory !== "all" &&
-        !categories.includes(selectedCategory)
-    ) {
-        selectedCategory = "all";
-    }
 
     box.innerHTML = allCategories.map(category => `
         <button
@@ -2169,10 +2152,15 @@ function renderCategories() {
             class="category-btn ${
                 selectedCategory === category.value ? "active" : ""
             }"
-            onclick="selectCategory(${JSON.stringify(category.value)
-                .replace(/</g, "\\u003c")})"
-        >${escapeHTML(category.label)}</button>
+            data-category="${category.value}"
+        >${category.label}</button>
     `).join("");
+
+    box.querySelectorAll(".category-btn").forEach(button => {
+        button.addEventListener("click", function() {
+            selectCategory(this.dataset.category);
+        });
+    });
 }
 
 function selectCategory(category) {
@@ -2180,7 +2168,6 @@ function selectCategory(category) {
     renderCategories();
     showProducts();
 }
-
 /* SHOW PRODUCTS - PRODUCT CARDS */
 
 function escapeHTML(value) {
@@ -2235,10 +2222,15 @@ const filtered = products.filter(function(product) {
 
     const category = getProductCategory(product);
 
-    const matchesCategory =
-        selectedCategory === "all" ||
-        category === selectedCategory;
+    console.log("Product category:", category, "| Selected:", selectedCategory);
 
+    const matchesCategory =
+    selectedCategory === "all" ||
+    (selectedCategory === "মেয়েদের" &&
+     category.includes("মেয়েদের")) ||
+    (selectedCategory === "ছেলেদের" &&
+     category.includes("ছেলেদের"));
+     
     return matchesSearch && matchesCategory;
 });
 
