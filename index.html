@@ -2141,10 +2141,38 @@ function renderCategories() {
     const box = document.getElementById("categoryList");
 
     const allCategories = [
-        { value: "all", label: "সব পণ্য" },
-        { value: "মেয়েদের", label: "মেয়েদের" },
-        { value: "ছেলেদের", label: "ছেলেদের" }
-    ];
+    { value: "all", label: "সব পণ্য" },
+    { value: "ছেলেদের পোশাক", label: "ছেলেদের পোশাক" },
+    { value: "মেয়েদের পোশাক", label: "মেয়েদের পোশাক" },
+    { value: "বাচ্চাদের পোশাক", label: "বাচ্চাদের পোশাক" },
+    { value: "শিশুদের পোশাক", label: "শিশুদের পোশাক" },
+    { value: "টি-শার্ট", label: "টি-শার্ট" },
+    { value: "শার্ট", label: "শার্ট" },
+    { value: "প্যান্ট", label: "প্যান্ট" },
+    { value: "জিন্স", label: "জিন্স" },
+    { value: "পাঞ্জাবি", label: "পাঞ্জাবি" },
+    { value: "থ্রি-পিস", label: "থ্রি-পিস" },
+    { value: "শাড়ি", label: "শাড়ি" },
+    { value: "হিজাব", label: "হিজাব" },
+    { value: "বোরকা", label: "বোরকা" },
+    { value: "ফ্রক", label: "ফ্রক" },
+    { value: "জুতা", label: "জুতা" },
+    { value: "স্যান্ডেল", label: "স্যান্ডেল" },
+    { value: "স্লিপার", label: "স্লিপার" },
+    { value: "ঘড়ি", label: "ঘড়ি" },
+    { value: "ব্যাগ", label: "ব্যাগ" },
+    { value: "স্কুল ব্যাগ", label: "স্কুল ব্যাগ" },
+    { value: "মানিব্যাগ", label: "মানিব্যাগ" },
+    { value: "বেল্ট", label: "বেল্ট" },
+    { value: "ক্যাপ", label: "ক্যাপ" },
+    { value: "প্রসাধনী", label: "প্রসাধনী" },
+    { value: "ত্বকের যত্ন", label: "ত্বকের যত্ন" },
+    { value: "মোবাইল অ্যাক্সেসরিজ", label: "মোবাইল অ্যাক্সেসরিজ" },
+    { value: "ইলেকট্রনিক্স", label: "ইলেকট্রনিক্স" },
+    { value: "ঘর সাজানোর পণ্য", label: "ঘর সাজানোর পণ্য" },
+    { value: "খেলনা", label: "খেলনা" },
+    { value: "অন্যান্য", label: "অন্যান্য" }
+];
 
     box.innerHTML = allCategories.map(category => `
         <button
@@ -2226,15 +2254,10 @@ const filtered = products.filter(function(product) {
 
     const matchesCategory =
     selectedCategory === "all" ||
-    (selectedCategory === "মেয়েদের" &&
-     category.includes("মেয়েদের")) ||
-    (selectedCategory === "ছেলেদের" &&
-     category.includes("ছেলেদের"));
-     
-    return matchesSearch && matchesCategory;
+    category === selectedCategory;
+
+return matchesSearch && matchesCategory;
 });
-
-
     if (filtered.length === 0) {
         box.innerHTML = `
             <div class="empty">কোনো পণ্য পাওয়া যায়নি।</div>
